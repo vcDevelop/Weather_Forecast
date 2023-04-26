@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/ebe7af3302.js" crossorigin="anonymous"></script>
+    <title>Weather</title>
+</head>
+<style>
+    .temp_value{
+        text-align: center;
+        font-size: xx-large;
+    }
+    .box{
+    background-color:black;
+    padding-top: 5%;
+    /* padding-bottom: 30%; */
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 10%;
+    text-align: center;
+    box-shadow: 10px 10px 5px 12px rgb(2, 2, 2);
+}
+.desc{
+    text-decoration: bisque;
+    text-align: center;
+    color: burlywood;
+}
+.CityName{
+    color: azure;
+}
+</style>
+<body>
+<div class= "box">
+    <div class="weather-icon">
+        <i class="fa-regular fa-sun fa-xl" style="color: #fbff1a;"></i>
+    </div>
+    <div class="CityName">
+        <h3 class="city_name_contry"><i class="fa-solid fa-street-view"></i>   {%cityname%},{%country%}</h3>
+    </div>
+    <p id="value_date" style="color: whitesmoke;">{%Day%} | {%Time%}</p>
+    <div class="temp_value" style="color: azure;">
+        <h3 class="temp">{%tempval%}</h3>
+        <h2 class="desc">{%desc%}</h2>
+    </div>
+    <div class="min-max" style="color: azure;">
+        <h3 class="tempinmin_max location">Min {%tempmin%} | Max {%tempmax%}</h3>
+    </div>
+</div>
+</body>
+</html>
