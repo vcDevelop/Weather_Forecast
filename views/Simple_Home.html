@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/ebe7af3302.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Weather</title>
+</head>
+<style>
+    .temp_value{
+        text-align: center;
+        font-size: xx-large;
+    }
+    .box{
+    background-color:black;
+    padding-top: 5%;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 10%;
+    text-align: center;
+    box-shadow: 10px 10px 5px 12px rgb(2, 2, 2);
+}
+.desc{
+    text-align: center;
+    text-shadow: 2px 2px 4px #000000;
+    color: skyblue;
+}
+.CityName{
+    color: azure;
+}
+.nav-title{
+    font-style: italic;
+    text-align: center;
+    font-size: xx-large;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bolder;
+    text-shadow: 0 0 4px white, 0 0 5px beige;
+    text-align: center;
+}
+.card {
+        margin: 0 auto; /* Added */
+        float: none; /* Added */
+        margin-top: 10%;
+        margin-bottom: 10px; /* Added */
+}
+.City_Dropdown{
+    padding-top: 0px;
+}
+</style>
+<body>
+
+<!-- NAV-BAR -->
+<nav class="navbar navbar-light bg-secondary justify-content-between">
+    <a class="navbar-brand nav-title" style="align-items: center;">Weather Forcast</a>
+    <div class="City_Dropdown">
+    <form action="/" method="post">
+        <select class="btn btn-light dropdown-toggle" name="cityName" id="City">
+          <option id="c" value="Citys"> Citys </option>
+          <option value="Pune">Pune</option>
+          <option value="Nashik">Nashik</option>
+          <option value="Mumbai">Mumbai</option>
+          <option value="New York">New York</option>
+        </select>
+        <button id="myButton" type="submit" disabled >Ok</button>
+        </div>
+    </form>
+</nav>
+<div class="card w-50 text-center">
+    <div class="card-header">
+        <h3 class="city_name_contry"><i class="fa-solid fa-street-view"></i>   {%cityname%},{%country%}</h3>
+    </div>
+    <div class="card-body">
+      <h3>Temprature :   <span> {%tempval%}  </span></h3>
+      <h3 class="tempinmin_max location">Min {%tempmin%} | Max {%tempmax%}</h3>
+      <h2 class="desc">{%desc%}</h2>
+    </div>
+    <div class="card-footer">
+        <p id="value_date">{%Day%} | {%Time%}</p>
+    </div>
+  </div>
+  <script>
+    document.getElementById("City").addEventListener("change", function() {
+      if (this.value === "Citys") {
+        document.getElementById("myButton").disabled = true;
+      } else {
+        document.getElementById("myButton").disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

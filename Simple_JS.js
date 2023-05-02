@@ -1,9 +1,9 @@
-//Module Declaration
-const fs=require("fs");
-const http=require("http");
-const requests = require('requests');
+const express =require("express");
+const https=require("https");
+const bodyParse=require("body-parser");
+const app =express();
+const fs=require('fs');
 
-//date month and year
 const getCurrentDate=() =>{
     var months=[
         "JAN",
@@ -59,12 +59,11 @@ const getCurrentTime=()=>{
     return `${hour}:${minutes}:${period}`;
 }
 
-//Function to change 
 const Change_Values=(JSON_DATA)=>{
-    const data_html=fs.readFileSync("Simple_Home.html","utf-8")
-    let data_real=data_html.replace("{%tempval%}",Math.round(JSON_DATA['main']['temp']-(273.15)) + "\xB0C")
-        data_real=data_real.replace("{%tempmin%}",Math.floor(JSON_DATA['main']['temp_min']-(273.15)) + "\xB0C")
-        data_real=data_real.replace("{%tempmax%}",Math.floor(JSON_DATA['main']['temp_max']-(273.15)) + "\xB0C")
+    const data_html=fs.readFileSync(__dirname+"/views/Simple_Home.html","utf-8")
+    let data_real=data_html.replace("{%tempval%}",Math.round(JSON_DATA['main']['temp']) + "\xB0C")
+        data_real=data_real.replace("{%tempmin%}",Math.floor(JSON_DATA['main']['temp_min']) + "\xB0C")
+        data_real=data_real.replace("{%tempmax%}",Math.floor(JSON_DATA['main']['temp_max']) + "\xB0C")
         data_real=data_real.replace("{%cityname%}",JSON_DATA['name'])
         data_real=data_real.replace("{%country%}",JSON_DATA['sys']['country'])
         data_real=data_real.replace("{%Day%}",getCurrentDay());
@@ -72,28 +71,44 @@ const Change_Values=(JSON_DATA)=>{
         data_real=data_real.replace("{%Mon%}",date[0]);
         data_real=data_real.replace("{%Year%}",date[1]);
         data_real=data_real.replace("{%Time%}",getCurrentTime());
-        data_real=data_real.replace("{%desc%}",JSON_DATA["weather"][0].description);
+        data_real=data_real.replace("{%desc%}"," "+JSON_DATA["weather"][0].description.toUpperCase());
+        var icon=JSON_DATA["weather"][0].main.charAt(0).toUpperCase();
+        data_real=data_real.replace("{%icon%}",icon);
     return data_real;
 }
 
-
-//create Server
-const server = http.createServer((req, res) => {
-    if (req.url == "/") {
-        requests(
-                'https://api.openweathermap.org/data/2.5/weather?q=Pune&appid=19346aecceb02f1c0b75a41383958edd')
-            .on('data', (data) => {
-                const JSON_API_DATA =JSON.parse(data)
-                const real_data=Change_Values(JSON_API_DATA)
-                //console.log(real_data)
-                res.write(real_data);
-            })
-            .on('end', (err) => {
-               res.end();
-            })
-    }
+app.use(bodyParse.urlencoded({extended: true}));
+app.get("/",function(res,req){
+  console.log("Hello")
+  query="Pune"
+  const appid="19346aecceb02f1c0b75a41383958edd";
+  const unit="metric";
+  const url="https://api.openweathermap.org/data/2.5/weather?q="+query+"&appid="+appid+"&units="+unit+"";
+  https.get(url ,function(response){
+  response.on("data",function(data){
+    const weatherData=JSON.parse(data);
+      let real=Change_Values(weatherData);
+      req.write(real)
+      console.log(real)
+      req.send();
+      req.sendFile(__dirname + "/views/Simple_Home.html");
+}); 
 });
-
-
-//Creating Own Server
-server.listen(8000,"127.0.0.1");
+});
+app.post("/",function(req,res){
+  query=req.body.cityName;
+  const appid="19346aecceb02f1c0b75a41383958edd";
+  const unit="metric";
+  const url="https://api.openweathermap.org/data/2.5/weather?q="+query+"&appid="+appid+"&units="+unit+"";
+  https.get(url ,function(response){
+  response.on("data",function(data){
+    const weatherData=JSON.parse(data);
+      let real=Change_Values(weatherData);
+      res.write(real)
+      res.send();
+}); 
+});
+})
+app.listen(8000, function(){
+  console.log("Server Started At 8000 Port");
+});
