@@ -3,6 +3,7 @@ const https=require("https");
 const bodyParse=require("body-parser");
 const app =express();
 const fs=require('fs');
+app.use(express.static(__dirname+'/public'));
 
 const getCurrentDate=() =>{
     var months=[
@@ -26,6 +27,7 @@ const getCurrentDate=() =>{
     return[months[month],year];
 }
 
+
 //Current Day
 const getCurrentDay=() =>{
     var weekdays=new Array(7);
@@ -39,8 +41,6 @@ const getCurrentDay=() =>{
     let currentTime= new Date();
     return(weekdays[currentTime.getDay()]);
 }
-
-//Time
 const getCurrentTime=()=>{
     var time=new Date();
     var hour=time.getHours();
@@ -58,7 +58,6 @@ const getCurrentTime=()=>{
     }
     return `${hour}:${minutes}:${period}`;
 }
-
 const Change_Values=(JSON_DATA)=>{
     const data_html=fs.readFileSync(__dirname+"/views/Simple_Home.html","utf-8")
     let data_real=data_html.replace("{%tempval%}",Math.round(JSON_DATA['main']['temp']) + "\xB0C")
@@ -67,6 +66,9 @@ const Change_Values=(JSON_DATA)=>{
         data_real=data_real.replace("{%cityname%}",JSON_DATA['name'])
         data_real=data_real.replace("{%country%}",JSON_DATA['sys']['country'])
         data_real=data_real.replace("{%Day%}",getCurrentDay());
+        let iconn=JSON_DATA.weather[0].icon;
+        data_real=data_real.replace("{%backimg%}","/images/Background.jpg")
+        data_real=data_real.replace("{%icon%}","https://openweathermap.org/img/wn/"+iconn+"@2x.png");
         let date=getCurrentDate();
         data_real=data_real.replace("{%Mon%}",date[0]);
         data_real=data_real.replace("{%Year%}",date[1]);
@@ -74,6 +76,7 @@ const Change_Values=(JSON_DATA)=>{
         data_real=data_real.replace("{%desc%}"," "+JSON_DATA["weather"][0].description.toUpperCase());
         var icon=JSON_DATA["weather"][0].main.charAt(0).toUpperCase();
         data_real=data_real.replace("{%icon%}",icon);
+        // console.log(data_real)
     return data_real;
 }
 
@@ -87,9 +90,10 @@ app.get("/",function(res,req){
   https.get(url ,function(response){
   response.on("data",function(data){
     const weatherData=JSON.parse(data);
+    const icon=weatherData.weather[0].icon;
+    const imaurl="https://openweathermap.org/img/wn/"+icon+"@2x.png";
       let real=Change_Values(weatherData);
       req.write(real)
-      console.log(real)
       req.send();
       req.sendFile(__dirname + "/views/Simple_Home.html");
 }); 

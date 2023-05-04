@@ -9,11 +9,38 @@
     <title>Weather</title>
 </head>
 <style>
-    .temp_value{
-        text-align: center;
-        font-size: xx-large;
-    }
-    .box{
+body, html {
+  height: 100%;
+}
+* {
+  box-sizing: border-box;
+}
+.bg-image{
+  background-image: url("/images/Background5.jpg");
+  filter: blur(6px);
+  -webkit-filter: blur(6px);
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.card{
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0, 0.8);
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  text-align: center;
+}
+.temp_value{
+    text-align: center;
+    font-size: xx-large;
+}
+.box{
     background-color:black;
     padding-top: 5%;
     margin-left: 30%;
@@ -31,29 +58,45 @@
     color: azure;
 }
 .nav-title{
-    font-style: italic;
+    font-size: clamp(3rem, 15vmin, 8rem);
     text-align: center;
     font-size: xx-large;
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-weight: bolder;
-    text-shadow: 0 0 4px white, 0 0 5px beige;
+    text-shadow: 0 0 4px rgb(25, 21, 21), 0 0 5px beige;
     text-align: center;
 }
 .card {
-        margin: 0 auto; /* Added */
-        float: none; /* Added */
+        margin: 0 auto;
+        float: none;
         margin-top: 10%;
-        margin-bottom: 10px; /* Added */
+        margin-bottom: 10px;
 }
 .City_Dropdown{
     padding-top: 0px;
+    align-items: center;
+    padding-right: 45%;
+}
+.navbar{
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0, 0.2);
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
 }
 </style>
 <body>
-
-<!-- NAV-BAR -->
-<nav class="navbar navbar-light bg-secondary justify-content-between">
-    <a class="navbar-brand nav-title" style="align-items: center;">Weather Forcast</a>
+  <div class="bg-image"></div>
+  <nav class="navbar navbar-light justify-content-between">
+    <a class="navbar-brand nav-title" style="align-items: center;">
+      <i class="fa fa-sun-o fa-lg" aria-hidden="true"></i> 
+      Weather forecast 
+    </a>
     <div class="City_Dropdown">
     <form action="/" method="post">
         <select class="btn btn-light dropdown-toggle" name="cityName" id="City">
@@ -63,31 +106,34 @@
           <option value="Mumbai">Mumbai</option>
           <option value="New York">New York</option>
         </select>
-        <button id="myButton" type="submit" disabled >Ok</button>
-        </div>
+         <button id="myButton"class="btn btn-primary" type="submit" disabled> Ok </button>
+      </div>
     </form>
-</nav>
+  </nav>
+  <div class="bg-text">
 <div class="card w-50 text-center">
-    <div class="card-header">
-        <h3 class="city_name_contry"><i class="fa-solid fa-street-view"></i>   {%cityname%},{%country%}</h3>
-    </div>
-    <div class="card-body">
-      <h3>Temprature :   <span> {%tempval%}  </span></h3>
-      <h3 class="tempinmin_max location">Min {%tempmin%} | Max {%tempmax%}</h3>
-      <h2 class="desc">{%desc%}</h2>
-    </div>
-    <div class="card-footer">
-        <p id="value_date">{%Day%} | {%Time%}</p>
-    </div>
+  <div class="card-header">
+      <h3 class="city_name_contry"><i class="fa-solid fa-street-view"></i>   {%cityname%},{%country%}</h3>
+      <img src="{%icon%}">
   </div>
-  <script>
-    document.getElementById("City").addEventListener("change", function() {
-      if (this.value === "Citys") {
-        document.getElementById("myButton").disabled = true;
-      } else {
-        document.getElementById("myButton").disabled = false;
-      }
-    });
-  </script>
+  <div class="card-body">
+    <h3>Temprature :   <span> {%tempval%}  </span></h3>
+    <h3 class="tempinmin_max location">Min {%tempmin%} | Max {%tempmax%}</h3>
+    <h2 class="desc">{%desc%}</h2>
+  </div>
+  <div class="card-footer">
+      <p id="value_date">{%Day%} | {%Time%}</p>
+  </div>
+</div>
+<script>
+  document.getElementById("City").addEventListener("change", function() {
+    if (this.value === "Citys") {
+      document.getElementById("myButton").disabled = true;
+    } else {
+      document.getElementById("myButton").disabled = false;
+    }
+  });
+</script>
+</div>
 </body>
 </html>
