@@ -5,7 +5,7 @@ Node_1: You can add multiple cities as per your requirement.<br>
 <h2>Steps:</h2><br>
 
 1.Create an account on OpenWeather API website (https://openweathermap.org/api).<br>
-2.Create your API key and paste it in Simple_JS.js file at Line no 87.<br>
+2.Create your API key and paste it in Simple_JS.js file at Line no 87. and 102 <br>
 3.Run Simple_JS.js file using nodemon or node (depends on your preference).<br>
 4.Once the file is running, you can retrieve weather data for the specified cities using the API.
 
