@@ -84,24 +84,24 @@ app.use(bodyParse.urlencoded({extended: true}));
 app.get("/",function(res,req){
   console.log("Hello")
   query="Pune"
-  const appid="19346aecceb02f1c0b75a41383958edd";
+  const appid="Your API";
   const unit="metric";
   const url="https://api.openweathermap.org/data/2.5/weather?q="+query+"&appid="+appid+"&units="+unit+"";
   https.get(url ,function(response){
   response.on("data",function(data){
     const weatherData=JSON.parse(data);
     const icon=weatherData.weather[0].icon;
-    const imaurl="https://openweathermap.org/img/wn/"+icon+"@2x.png";
+    // const imaurl="https://openweathermap.org/img/wn/"+icon+"@2x.png";
       let real=Change_Values(weatherData);
       req.write(real)
-      req.send();
+    //   req.send();
       req.sendFile(__dirname + "/views/Simple_Home.html");
 }); 
 });
 });
 app.post("/",function(req,res){
   query=req.body.cityName;
-  const appid="19346aecceb02f1c0b75a41383958edd";
+  const appid="Your API";
   const unit="metric";
   const url="https://api.openweathermap.org/data/2.5/weather?q="+query+"&appid="+appid+"&units="+unit+"";
   https.get(url ,function(response){
