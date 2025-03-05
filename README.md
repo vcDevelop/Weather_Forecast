@@ -1,15 +1,45 @@
+# Weather Forecast - Node.js & OpenWeather API
 
-<h1># Weather_Forecast</h1>
-<h4>Forecast the weather conditions of some city's.</h4><br>
-Node_1: You can add multiple cities as per your requirement.<br>
-<h2>Steps:</h2><br>
+Forecast the weather conditions of selected cities using the OpenWeather API.
 
-1.Create an account on OpenWeather API website (https://openweathermap.org/api).<br>
-2.Create your API key and paste it in Simple_JS.js file at Line no 87. and 102 <br>
-3.Run Simple_JS.js file using nodemon or node (depends on your preference).<br>
-4.Once the file is running, you can retrieve weather data for the specified cities using the API.
+## Features
+- Fetch weather data for multiple cities
+- Uses OpenWeather API for real-time weather updates
+- Simple and lightweight implementation
 
-Output :
+## Technologies Used
+- Node.js
+- [OpenWeather API](https://openweathermap.org/api)
 
-![image](https://user-images.githubusercontent.com/88608116/236294816-921fe693-b756-40ba-95ef-a78098bcc0f7.png)
+## Installation
 
+1. Create an account on [OpenWeather API](https://openweathermap.org/api).
+2. Generate your API key and paste it into `Simple_JS.js` at Line 87 and 102.
+3. Clone the repository:
+   ```bash
+   git clone <your-repo-url>
+   ```
+4. Navigate to the project directory:
+   ```bash
+   cd Weather_Forecast
+   ```
+5. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+## Usage
+
+1. Run the application using Node.js:
+   ```bash
+   node Simple_JS.js
+   ```
+   Or, using Nodemon for live updates:
+   ```bash
+   npx nodemon Simple_JS.js
+   ```
+2. Once running, retrieve weather data for specified cities using the API.
+
+## Example Output
+
+<img src="https://user-images.githubusercontent.com/88608116/236294816-921fe693-b756-40ba-95ef-a78098bcc0f7.png" width="300">
