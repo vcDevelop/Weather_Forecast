@@ -42,4 +42,4 @@ Forecast the weather conditions of selected cities using the OpenWeather API.
 
 ## Example Output
 
-<img src="https://user-images.githubusercontent.com/88608116/236294816-921fe693-b756-40ba-95ef-a78098bcc0f7.png" width="300">
+<img src="https://user-images.githubusercontent.com/88608116/236294816-921fe693-b756-40ba-95ef-a78098bcc0f7.png" width="500">
